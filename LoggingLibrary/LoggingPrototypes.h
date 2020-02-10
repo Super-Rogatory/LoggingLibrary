@@ -11,18 +11,23 @@ public:
     bool closeFile ();
     // write function. To write to the log file.
     void writetimetologFile();
-    void writetexttologFile(const std::string &logMessage);
     void writelinenumtologFile(int num);
-    void writefunctiontologFile(const std::string &funcMessage);
-    void writetypetologFile(const std::string &severityLevel);
+    void writefunctiontologFile(const std::string &fmessage);
+    void writetypetologFile(const std::string &level);
+    void writetexttologFile(const std::string &message);
+    void compileLog(); // take the vector and reorder the output
     // read function
+    void readLog(); //you can only read after the log has been compiled.
     // flush function
     ~Logging() {}
 private:
     std::fstream fs;
     time_t dt;
     std::vector<std::string> fulldatestream{};
+    std::vector<std::string> loggingstream{};
     std::string month, day, year, time{};
+    std::string funcMessage, severityLevel, logMessage {};
+    bool isCompile;
     int lineNumber;
     DateTime converter;
 };

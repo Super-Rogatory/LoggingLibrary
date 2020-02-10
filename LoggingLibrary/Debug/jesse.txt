@@ -1,0 +1,2 @@
+[02-10-20 14:13:24] [LN:45] [FN: Polly] [info]  This is a test to display a working logging system
+[02-10-20 14:13:24] [LN:45] [FN: Jolly] [warning]  Warning in the system

@@ -5,10 +5,12 @@
     */
     
 #include <iostream>
+#include <iterator>
 #include <vector>
 #include <chrono>
 #include <ctime>
 #include <cstring>
+#include <string>
 #include <fstream>
 #include "LoggingPrototypes.h"
 #include "DateTime.h"
@@ -17,7 +19,7 @@
 bool Logging::openFile(const std::string &fileName) // will not store the string or create its own version of it, it will just utilize the string
 {
     // try to open the file, if the file could not be opened.. display error.
-    fs.open(fileName, std::fstream::in);
+    fs.open(fileName, std::fstream::out);
     if(!fs.is_open()) { 
         std::cout << "Error opening file" << std::endl; // ! TODO: throw exception, keep it barebones for now. !
         return false; 
@@ -28,16 +30,16 @@ bool Logging::openFile(const std::string &fileName) // will not store the string
 void Logging::writetimetologFile(){
     // THIS IS WHAT WRITES THE TIME
     auto currenttime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()); 
-    auto mytime = ctime(&currenttime);  
+    auto mytime = ctime(&currenttime);  //formats currentime into a more human like structure
 
-    char *token = std::strtok(mytime, " ");
+    char *token = std::strtok(mytime, " "); // creates a token of space, spaces in between month day and others can be pushed into vector
     while(token != nullptr){
         fulldatestream.push_back(token); //filling a vector so that I can retreive the month, day, year and time.
         token = std::strtok(nullptr, " ");
     }
-    std::cout << std::endl; // for cleanliness
+
     month = fulldatestream[1];
-    month = converter.convertMonth(month);
+    month = converter.convertMonth(month); //utilizes my very own converter. From Feb -> 02.
     
     day = fulldatestream[2];
     day = converter.convertDate(day);
@@ -46,28 +48,67 @@ void Logging::writetimetologFile(){
     
     year = fulldatestream[4];
     year = converter.convertYear(year);
- 
-    // add time
-    std::cout << "[" << month << "-" << day << "-" << year <<  " " << time << "]";
 }
 
 void Logging::writelinenumtologFile(int num)
 {
-    // WRITES LINE NUMBER
     lineNumber = num;
-    std::cout << " [LN:" << lineNumber << "] ";
 }
-void Logging::writefunctiontologFile(const std::string &funcMessage)
+void Logging::writefunctiontologFile(const std::string &fmessage)
 {
-    std::cout << "[FN: " << funcMessage << "] ";
+    funcMessage = fmessage;
 }
-void Logging::writetypetologFile(const std::string &severityLevel){
-    std::cout << "[" << severityLevel << "] ";
+void Logging::writetypetologFile(const std::string &level)
+{
+    severityLevel = level;
 }
-void Logging::writetexttologFile(const std::string &logMessage){ //the message is going to be sent from the other program in order to be logged into a text file. if divide by 0, log (invalid) etc etc.
+void Logging::writetexttologFile(const std::string &message)
+{ //the message is going to be sent from the other program in order to be logged into a text file. if divide by 0, log (invalid) etc etc.
+    logMessage = message;
+}
+void Logging::compileLog()
+{
+    /*
     // create a vector to append the month day year, line number, message, warning and description. write that into log file.
-    std::cout << " " << logMessage << std::endl;
-    // WRITES 
+    loggingstream.push_back(month);
+    loggingstream.push_back(day);
+    loggingstream.push_back(year);
+    loggingstream.push_back(time);
+    // Converting
+    std::string stringlineNumber = std::to_string(lineNumber);
+    loggingstream.push_back(stringlineNumber);
+    loggingstream.push_back(funcMessage);
+    loggingstream.push_back(severityLevel);
+    loggingstream.push_back(logMessage);
+    */
+    fs << "[" << month << "-" << day << "-" << year <<  " " << time << "]";
+    fs << " [LN:" << lineNumber << "] ";
+    fs << "[FN: " << funcMessage << "] ";
+    fs << "[" << severityLevel << "] ";
+    fs << " " << logMessage << std::endl;
+    /*
+    for(auto ptr = loggingstream.begin(); ptr < loggingstream.end(); ptr++)
+    {
+        std::cout << *ptr << " ";
+    }
+     * it works */
+     
+    isCompile = true;
+    
+    
+}
+void Logging::readLog()
+{
+    
+    if(isCompile)
+    {
+        
+    }
+    else
+    {
+    
+    }
+    
 }
 bool Logging::closeFile()
 {   
@@ -78,13 +119,15 @@ bool Logging::closeFile()
 // Assume we are creating our own library for open and close functionality
 
 int main(){
+    // delete soon! TODO:!
     Logging test;
     test.openFile("jesse.txt");
     test.writetimetologFile();
     test.writelinenumtologFile(45);
     test.writefunctiontologFile("Polly");
     test.writetypetologFile("info");
-    test.writetexttologFile("This is an information message");
+    test.writetexttologFile("This is a test to display a working logging system");
+    test.compileLog();
     test.closeFile();
     return 0;
 }
