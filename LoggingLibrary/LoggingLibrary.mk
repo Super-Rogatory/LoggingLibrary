@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Chukwudi Ikem
-Date                   :=10/02/20
+Date                   :=11/02/20
 CodeLitePath           :=/home/superrogatory/.codelite
 LinkerName             :=/usr/bin/g++
 SharedObjectLinkerName :=/usr/bin/g++ -shared -fPIC
@@ -60,7 +60,7 @@ AS       := /usr/bin/as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/DateTime.cpp$(ObjectSuffix) $(IntermediateDirectory)/main.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/LoggingPrototypes.cpp$(ObjectSuffix) $(IntermediateDirectory)/DateTime.cpp$(ObjectSuffix) 
 
 
 
@@ -91,14 +91,6 @@ PreBuild:
 ##
 ## Objects
 ##
-$(IntermediateDirectory)/DateTime.cpp$(ObjectSuffix): DateTime.cpp $(IntermediateDirectory)/DateTime.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/superrogatory/CPPWorkspace/LoggingLibrary/LoggingLibrary/DateTime.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/DateTime.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/DateTime.cpp$(DependSuffix): DateTime.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/DateTime.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/DateTime.cpp$(DependSuffix) -MM DateTime.cpp
-
-$(IntermediateDirectory)/DateTime.cpp$(PreprocessSuffix): DateTime.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/DateTime.cpp$(PreprocessSuffix) DateTime.cpp
-
 $(IntermediateDirectory)/main.cpp$(ObjectSuffix): main.cpp $(IntermediateDirectory)/main.cpp$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/superrogatory/CPPWorkspace/LoggingLibrary/LoggingLibrary/main.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/main.cpp$(DependSuffix): main.cpp
@@ -106,6 +98,22 @@ $(IntermediateDirectory)/main.cpp$(DependSuffix): main.cpp
 
 $(IntermediateDirectory)/main.cpp$(PreprocessSuffix): main.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main.cpp$(PreprocessSuffix) main.cpp
+
+$(IntermediateDirectory)/LoggingPrototypes.cpp$(ObjectSuffix): LoggingPrototypes.cpp $(IntermediateDirectory)/LoggingPrototypes.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/superrogatory/CPPWorkspace/LoggingLibrary/LoggingLibrary/LoggingPrototypes.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/LoggingPrototypes.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/LoggingPrototypes.cpp$(DependSuffix): LoggingPrototypes.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/LoggingPrototypes.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/LoggingPrototypes.cpp$(DependSuffix) -MM LoggingPrototypes.cpp
+
+$(IntermediateDirectory)/LoggingPrototypes.cpp$(PreprocessSuffix): LoggingPrototypes.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/LoggingPrototypes.cpp$(PreprocessSuffix) LoggingPrototypes.cpp
+
+$(IntermediateDirectory)/DateTime.cpp$(ObjectSuffix): DateTime.cpp $(IntermediateDirectory)/DateTime.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/superrogatory/CPPWorkspace/LoggingLibrary/LoggingLibrary/DateTime.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/DateTime.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/DateTime.cpp$(DependSuffix): DateTime.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/DateTime.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/DateTime.cpp$(DependSuffix) -MM DateTime.cpp
+
+$(IntermediateDirectory)/DateTime.cpp$(PreprocessSuffix): DateTime.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/DateTime.cpp$(PreprocessSuffix) DateTime.cpp
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

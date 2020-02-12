@@ -98,9 +98,10 @@
     </Configuration>
   </Settings>
   <VirtualDirectory Name="src">
+    <File Name="main.cpp"/>
+    <File Name="LoggingPrototypes.cpp"/>
     <File Name="DateTime.cpp"/>
     <File Name="DateTime.h"/>
     <File Name="LoggingPrototypes.h"/>
-    <File Name="main.cpp"/>
   </VirtualDirectory>
 </CodeLite_Project>

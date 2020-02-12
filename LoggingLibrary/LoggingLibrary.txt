@@ -1,1 +1,1 @@
-./Debug/DateTime.cpp.o ./Debug/main.cpp.o
+./Debug/main.cpp.o ./Debug/LoggingPrototypes.cpp.o ./Debug/DateTime.cpp.o
